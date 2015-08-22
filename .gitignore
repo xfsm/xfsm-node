@@ -1,0 +1,11 @@
+# npm install modules
+node_modules/
+
+# npm debug log
+npm-debug.log
+
+# intelliJ
+.idea/
+
+# mac temp file
+.DS_Store
