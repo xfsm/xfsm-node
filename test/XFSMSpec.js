@@ -5,6 +5,7 @@ var XFSM = main.XFSM;
 var fs = require('fs');
 var path = require('path');
 var fsmJson = fs.readFileSync(path.join(__dirname, 'fsm.json'), {encoding: 'utf8'});
+var fsmUml = fs.readFileSync(path.join(__dirname, 'fsm.uml'), {encoding: 'utf8'});
 
 describe("XFSM", function () {
 
@@ -51,6 +52,30 @@ describe("XFSM", function () {
         describe("fromJson", function () {
 
             var ruleSet = new RuleSet().fromJson(fsmJson);
+            it("should set ruleset data", function() {
+                expect(ruleSet.initialEvent).toBe("__init__");
+
+                expect(ruleSet.states.HOME.name).toBe("HOME");
+                expect(ruleSet.states.HOME.onEnter).toBe("SAY_I_AM_BACK");
+                expect(ruleSet.states.HOME.onExit).toBe("SAY_I_WILL_BE_BACK");
+                expect(ruleSet.states.SCHOOL.name).toBe("SCHOOL");
+                expect(ruleSet.states.SCHOOL.onEnter).toBe("YO_FRIENDS");
+                expect(ruleSet.states.SCHOOL.onExit).toBe("BYE_FRIENDS");
+
+                expect(ruleSet.transitions["EV_AM8@HOME"].event).toBe("EV_AM8");
+                expect(ruleSet.transitions["EV_AM8@HOME"].fromStateName).toBe("HOME");
+                expect(ruleSet.transitions["EV_AM8@HOME"].toStateName).toBe("SCHOOL");
+
+                expect(ruleSet.transitions["EV_PM7@SCHOOL"].event).toBe("EV_PM7");
+                expect(ruleSet.transitions["EV_PM7@SCHOOL"].fromStateName).toBe("SCHOOL");
+                expect(ruleSet.transitions["EV_PM7@SCHOOL"].toStateName).toBe("HOME");
+                expect(ruleSet.transitions["EV_PM7@SCHOOL"].onTransition).toBe("HAVE_DINNER");
+            });
+        });
+
+        describe("fromPlantUml", function () {
+
+            var ruleSet = new RuleSet().fromPlantUml(fsmUml);
             it("should set ruleset data", function() {
                 expect(ruleSet.initialEvent).toBe("__init__");
 
