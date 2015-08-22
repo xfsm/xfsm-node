@@ -1,9 +1,7 @@
-var RuleSet = require('../lib/RuleSet');
-var XFSM = require('../lib/XFSM');
+var main = require('../main');
 
-
-
-
+var RuleSet = main.RuleSet;
+var XFSM = main.XFSM;
 
 
 
@@ -44,7 +42,7 @@ xfsm.emit("go_home");
 xfsm.emit("go_out");
 
 var fs = require('fs');
-var data = fs.readFileSync('./fsm.json', {encoding: 'utf8'});
+var data = fs.readFileSync(__dirname + '/fsm.json', {encoding: 'utf8'});
 var ruleSet2 = new RuleSet().fromJson(data);
 console.log(ruleSet2);
 var listener2 = {
