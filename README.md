@@ -1,5 +1,7 @@
 # xfsm-node
 
+[![Build Status](https://travis-ci.org/xfsm/xfsm-node.svg)](https://travis-ci.org/xfsm/xfsm-node)
+
 ## install
 
 ```npm
